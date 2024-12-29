@@ -27,7 +27,7 @@ router.register(r'documents', DocumentViewSet, basename='document')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
-    path('', include(router.urls)),
+    path('api', include(router.urls)),
     path('core/', include('core.urls')),
 
 ]

@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def document_list(request):
     documents = Document.objects.filter(user=request.user)
-    return render(request, 'core/document_list.html', {'documents': documents})
+    return render(request, 'core/document_list.html')
 
 
 @login_required

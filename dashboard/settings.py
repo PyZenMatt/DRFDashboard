@@ -37,7 +37,7 @@ ACCOUNT_EMAIL_REQUIRED = False
 ACCOUNT_USERNAME_REQUIRED = True  # Usa l'email per autenticarti
 ACCOUNT_EMAIL_VERIFICATION = 'none'  # Può essere 'mandatory' o 'none'
 
-LOGIN_REDIRECT_URL = '/documents/'
+LOGIN_REDIRECT_URL = '/core/documents/'
 
 
 # Application definition
