@@ -3,8 +3,10 @@ from rest_framework.permissions import IsAuthenticated
 from .models import Document
 from .serializers import DocumentSerializer
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from .forms import DocumentForm
+
 
 @login_required
 def document_list(request):
@@ -15,16 +17,16 @@ def document_list(request):
 @login_required
 def document_upload(request):
     if request.method == 'POST':
-        newdoc = Document(
-            file=request.FILES['file'],
-            user=request.user
-        )
-        newdoc.save()
-        return HttpResponseRedirect(reverse('document_list'))
-    return render(request, 'core/document_list.html')
+        form = DocumentForm(request.POST, request.FILES)
+        if form.is_valid():
+            newdoc = form.save(commit=False)
+            newdoc.user = request.user
+            newdoc.save()
+            return redirect('document_list')  # Usa 'redirect' per una gestione più pulita degli URL
+    else:
+        form = DocumentForm()  # Crea un form vuoto per il GET
 
-
-
+    return render(request, 'core/document_upload.html', {'form': form})
 class DocumentViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows documents to be viewed or edited.
