@@ -1,0 +1,15 @@
+{% extends "base" %}
+
+{% block content %}
+<h2>Your Documents</h2>
+{% if documents %}
+<ul>
+    {% for document in documents %}
+    <li>{{ document.name }} - Uploaded on {{ document.created_at }}</li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No documents uploaded yet.</p>
+{% endif %}
+<a href="{% url 'document_upload' %}">Upload a new document</a>
+{% endblock %}
