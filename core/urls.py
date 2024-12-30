@@ -1,8 +1,8 @@
-from django.urls import path
-from .views import edit_profile, document_list, document_upload
+from rest_framework.routers import DefaultRouter
+from .views import DocumentViewSet, ProfileViewSet
 
-urlpatterns = [
-    path('profile/edit/', edit_profile, name='edit_profile'),
-    path('documents/', document_list, name='document_list'),  # URL per la visualizzazione della lista dei documenti
-    path('documents/upload/', document_upload, name='document_upload'),  # URL per il caricamento dei documenti
-]
+router = DefaultRouter()
+router.register(r'documents', DocumentViewSet, basename='documents')
+router.register(r'profiles', ProfileViewSet, basename='profiles')
+
+urlpatterns = router.urls
